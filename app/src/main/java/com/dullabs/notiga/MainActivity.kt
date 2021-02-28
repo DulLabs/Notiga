@@ -11,7 +11,7 @@ import com.dullabs.notiga.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainBinding: ActivityMainBinding;
+    private lateinit var mainBinding: ActivityMainBinding
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
