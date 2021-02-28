@@ -1,6 +1,8 @@
 package com.dullabs.notiga
 
 import android.os.Bundle
+import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -57,5 +59,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    fun hideBottomAppBar() {
+        mainBinding.bottomAppBar.visibility = View.GONE
+    }
+
+    fun showBottomAppBar() {
+        mainBinding.bottomAppBar.visibility = View.VISIBLE
+    }
+
+    fun hideBottomFab() {
+        mainBinding.bottomFab.visibility = View.GONE
+    }
+
+    fun showBottomFab() {
+        mainBinding.bottomFab.visibility = View.VISIBLE
     }
 }
