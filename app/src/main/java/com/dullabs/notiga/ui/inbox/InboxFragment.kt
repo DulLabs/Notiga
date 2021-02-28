@@ -9,23 +9,31 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dullabs.notiga.R
+import com.dullabs.notiga.databinding.FragmentInboxBinding
 
 class InboxFragment : Fragment() {
 
+    private var _binding: FragmentInboxBinding? = null
     private lateinit var inboxViewModel: InboxViewModel
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentInboxBinding.inflate(inflater, container, false)
         inboxViewModel =
             ViewModelProvider(this).get(InboxViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_inbox, container, false)
-        val textView: TextView = root.findViewById(R.id.textInbox)
         inboxViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            binding.textInbox.text = it
         })
-        return root
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

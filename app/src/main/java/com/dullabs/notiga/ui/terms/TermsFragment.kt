@@ -9,23 +9,31 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dullabs.notiga.R
+import com.dullabs.notiga.databinding.FragmentTermsBinding
 
 class TermsFragment : Fragment() {
 
+    private var _binding: FragmentTermsBinding? = null
     private lateinit var termsViewModel: TermsViewModel
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentTermsBinding.inflate(inflater, container, false)
         termsViewModel =
             ViewModelProvider(this).get(TermsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_terms, container, false)
-        val textView: TextView = root.findViewById(R.id.textTerms)
         termsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            binding.textTerms.text = it
         })
-        return root
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
