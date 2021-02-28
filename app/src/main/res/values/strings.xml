@@ -1,7 +1,13 @@
 <resources>
-    <string name="terms">Terms</string>
     <string name="inbox">Inbox</string>
     <string name="batch">Batch</string>
+    <string name="terms">Terms</string>
+    <string name="aboutus">About Us</string>
+    <string name="chat_options">Chat Options</string>
+    <string name="faq">FAQ</string>
+    <string name="feedback">Feedback</string>
+    <string name="insights">Insights</string>
+    <string name="privacy_policy">Privacy Policy</string>
     <string name="configure">Configure</string>
     <string name="pause">Pause Batching</string>
     <string name="app_name">Notiga</string>

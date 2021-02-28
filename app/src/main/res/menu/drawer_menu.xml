@@ -4,12 +4,28 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/inbox"
-            android:icon="@drawable/ic_inbox"
-            android:title="Inbox" />
+            android:id="@+id/insightsFragment"
+            android:icon="@drawable/ic_insights"
+            android:title="@string/insights" />
         <item
-            android:id="@+id/termsFragment"
+            android:id="@+id/chatOptionsFragment"
+            android:icon="@drawable/ic_chat"
+            android:title="@string/chat_options" />
+        <item
+            android:id="@+id/feedbackFragment"
+            android:icon="@drawable/ic_feedback"
+            android:title="@string/feedback" />
+        <item
+            android:id="@+id/faqFragment"
+            android:icon="@drawable/ic_faq"
+            android:title="@string/faq" />
+        <item
+            android:id="@+id/aboutUsFragment"
             android:icon="@drawable/ic_inbox"
-            android:title="Terms" />
+            android:title="@string/aboutus" />
+        <item
+            android:id="@+id/privacyPolicyFragment"
+            android:icon="@drawable/ic_privacy_policy"
+            android:title="@string/privacy_policy" />
     </group>
 </menu>

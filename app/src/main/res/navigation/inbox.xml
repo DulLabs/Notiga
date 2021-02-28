@@ -11,8 +11,33 @@
         android:label="@string/inbox"
         tools:layout="@layout/fragment_inbox" />
     <fragment
-        android:id="@+id/termsFragment"
-        android:name="com.dullabs.notiga.ui.terms.TermsFragment"
-        android:label="@string/terms"
-        tools:layout="@layout/fragment_terms" />
+        android:id="@+id/aboutUsFragment"
+        android:name="com.dullabs.notiga.ui.aboutus.AboutUsFragment"
+        android:label="@string/aboutus"
+        tools:layout="@layout/fragment_aboutus" />
+    <fragment
+        android:id="@+id/chatOptionsFragment"
+        android:name="com.dullabs.notiga.ui.chatoptions.ChatOptionsFragment"
+        android:label="@string/chat_options"
+        tools:layout="@layout/fragment_chat_options" />
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.dullabs.notiga.ui.faq.FaqFragment"
+        android:label="@string/faq"
+        tools:layout="@layout/fragment_faq" />
+    <fragment
+        android:id="@+id/feedbackFragment"
+        android:name="com.dullabs.notiga.ui.feedback.FeedbackFragment"
+        android:label="@string/feedback"
+        tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/insightsFragment"
+        android:name="com.dullabs.notiga.ui.insights.InsightsFragment"
+        android:label="@string/insights"
+        tools:layout="@layout/fragment_insights" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.dullabs.notiga.ui.privacypolicy.PrivacyPolicyFragment"
+        android:label="@string/privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 </navigation>
