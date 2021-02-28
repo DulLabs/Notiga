@@ -22,7 +22,7 @@ class TermsFragment : Fragment() {
         termsViewModel =
             ViewModelProvider(this).get(TermsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_terms, container, false)
-        val textView: TextView = root.findViewById(R.id.text_terms)
+        val textView: TextView = root.findViewById(R.id.textTerms)
         termsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

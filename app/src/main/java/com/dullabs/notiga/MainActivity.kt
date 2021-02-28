@@ -11,16 +11,19 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.dullabs.notiga.databinding.ActivityMainBinding
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var mainBinding: ActivityMainBinding;
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
         if (savedInstanceState == null) {
             setupBottomNavBar()
         }
@@ -33,9 +36,9 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupBottomNavBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavView)
         val topAppBar = findViewById<MaterialToolbar>(R.id.topAppBar)
-        val sideNav = findViewById<NavigationView>(R.id.side_nav_view)
+        val sideNav = findViewById<NavigationView>(R.id.sideNavView)
         val appBarConfiguration = AppBarConfiguration(
             setOf(R.id.inboxFragment, R.id.batchFragment, R.id.configureFragment),
             findViewById<DrawerLayout>(R.id.drawerLayout)
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val controller = bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_fragment,
+            containerId = R.id.navHostFragment,
             intent = intent
         )
 

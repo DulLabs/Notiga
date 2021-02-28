@@ -7,7 +7,7 @@
     tools:context=".ui.terms.TermsFragment">
 
     <TextView
-        android:id="@+id/text_terms"
+        android:id="@+id/textTerms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

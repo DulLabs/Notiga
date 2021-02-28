@@ -22,7 +22,7 @@ class BatchFragment : Fragment() {
         batchViewModel =
             ViewModelProvider(this).get(BatchViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_batch, container, false)
-        val textView: TextView = root.findViewById(R.id.text_batch)
+        val textView: TextView = root.findViewById(R.id.textBatch)
         batchViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

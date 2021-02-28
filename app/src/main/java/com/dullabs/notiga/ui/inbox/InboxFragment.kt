@@ -22,7 +22,7 @@ class InboxFragment : Fragment() {
         inboxViewModel =
             ViewModelProvider(this).get(InboxViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_inbox, container, false)
-        val textView: TextView = root.findViewById(R.id.text_inbox)
+        val textView: TextView = root.findViewById(R.id.textInbox)
         inboxViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

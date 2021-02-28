@@ -22,7 +22,7 @@ class ConfigureFragment : Fragment() {
         configureViewModel =
             ViewModelProvider(this).get(ConfigureViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_configure, container, false)
-        val textView: TextView = root.findViewById(R.id.text_configure)
+        val textView: TextView = root.findViewById(R.id.textConfigure)
         configureViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })

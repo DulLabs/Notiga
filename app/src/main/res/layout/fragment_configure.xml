@@ -7,7 +7,7 @@
     tools:context=".ui.configure.ConfigureFragment">
 
     <TextView
-        android:id="@+id/text_configure"
+        android:id="@+id/textConfigure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
