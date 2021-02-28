@@ -10,4 +10,9 @@
         android:name="com.dullabs.notiga.ui.batch.BatchFragment"
         android:label="Batch"
         tools:layout="@layout/fragment_batch" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.dullabs.notiga.ui.terms.TermsFragment"
+        android:label="@string/terms"
+        tools:layout="@layout/fragment_terms" />
 </navigation>

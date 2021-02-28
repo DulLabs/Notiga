@@ -10,4 +10,9 @@
         android:name="com.dullabs.notiga.ui.configure.ConfigureFragment"
         android:label="Configure"
         tools:layout="@layout/fragment_configure" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.dullabs.notiga.ui.terms.TermsFragment"
+        android:label="@string/terms"
+        tools:layout="@layout/fragment_terms" />
 </navigation>
