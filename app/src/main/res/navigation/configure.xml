@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/configureFragment"
         android:name="com.dullabs.notiga.ui.configure.ConfigureFragment"
-        android:label="Configure"
+        android:label="@string/configure"
         tools:layout="@layout/fragment_configure" />
     <fragment
         android:id="@+id/termsFragment"

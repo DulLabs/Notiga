@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/inboxFragment"
         android:name="com.dullabs.notiga.ui.inbox.InboxFragment"
-        android:label="Inbox"
+        android:label="@string/inbox"
         tools:layout="@layout/fragment_inbox" />
     <fragment
         android:id="@+id/termsFragment"

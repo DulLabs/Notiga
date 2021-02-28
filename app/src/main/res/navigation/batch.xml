@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/batchFragment"
         android:name="com.dullabs.notiga.ui.batch.BatchFragment"
-        android:label="Batch"
+        android:label="@string/batch"
         tools:layout="@layout/fragment_batch" />
     <fragment
         android:id="@+id/termsFragment"

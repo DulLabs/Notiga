@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Notiga</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="terms">Terms</string>
+    <string name="inbox">Inbox</string>
+    <string name="batch">Batch</string>
+    <string name="configure">Configure</string>
+    <string name="pause">Pause Batching</string>
+    <string name="app_name">Notiga</string>
+    <string name="app_description">Boost your productivity</string>
 </resources>
