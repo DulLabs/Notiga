@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/inbox"
+        android:icon="@drawable/ic_inbox"
+        android:title="Inbox" />
+
+    <item
+        android:id="@+id/batch"
+        android:icon="@drawable/ic_timer"
+        android:title="Batch" />
+
+    <item
+        android:id="@+id/configure"
+        android:icon="@drawable/ic_configure"
+        android:title="Configure" />
+
+</menu>
