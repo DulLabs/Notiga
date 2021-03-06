@@ -12,4 +12,7 @@
     <string name="pause">Pause Batching</string>
     <string name="app_name">Notiga</string>
     <string name="app_description">Boost your productivity</string>
+
+    <string name="icon_description">Notification app icon</string>
+    <string name="right_arrow">Right arrow</string>
 </resources>
