@@ -12,14 +12,21 @@ import com.dullabs.notiga.models.Notification
 
 class NotificationAdapter(
     private var mNotificationsData: List<Notification>,
-    private var mContext: Context
+    private var mContext: Context,
+    private val onNotificationClicked: (Notification) -> Unit
 ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val mIconImage = itemView.findViewById<ImageView>(R.id.iconImage)
         private val mAppName = itemView.findViewById<TextView>(R.id.appName)
         private val mNotificationDescription = itemView.findViewById<TextView>(R.id.notificationDescription)
+
+        init {
+            itemView.setOnClickListener {
+                onNotificationClicked(mNotificationsData[adapterPosition])
+            }
+        }
 
         fun bindTo(currentNotification: Notification) {
             mIconImage.setImageResource(currentNotification.getAppIconId())
@@ -42,26 +49,8 @@ class NotificationAdapter(
         return mNotificationsData.size
     }
 
-//    fun addItem(notificationItem: Notification) {
-//        mNotificationsData.add(notificationItem)
-//        notifyDataSetChanged()
-//    }
-//
-//    fun removeItem(position: Int) {
-//        mNotificationsData.removeAt(position)
-//        notifyItemRemoved(position)
-//    }
-//
-//    fun restoreItem(notificationItem: Notification, position: Int) {
-//        mNotificationsData.add(position, notificationItem)
-//        notifyItemInserted(position)
-//    }
-
-    fun getData(): List<Notification> {
-        return mNotificationsData
-    }
-
     fun getItemAtPosition(position: Int): Notification {
         return mNotificationsData[position]
     }
+
 }

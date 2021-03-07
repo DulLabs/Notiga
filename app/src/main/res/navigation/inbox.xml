@@ -9,7 +9,11 @@
         android:id="@+id/inboxFragment"
         android:name="com.dullabs.notiga.ui.inbox.InboxFragment"
         android:label="@string/inbox"
-        tools:layout="@layout/fragment_inbox" />
+        tools:layout="@layout/fragment_inbox" >
+        <action
+            android:id="@+id/action_inboxFragment_to_appInboxFragment"
+            app:destination="@id/appInboxFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.dullabs.notiga.ui.aboutus.AboutUsFragment"
@@ -40,4 +44,9 @@
         android:name="com.dullabs.notiga.ui.privacypolicy.PrivacyPolicyFragment"
         android:label="@string/privacy_policy"
         tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/appInboxFragment"
+        android:name="com.dullabs.notiga.ui.appinbox.AppInboxFragment"
+        android:label="@string/app_inbox"
+        tools:layout="@layout/fragment_app_inbox" />
 </navigation>

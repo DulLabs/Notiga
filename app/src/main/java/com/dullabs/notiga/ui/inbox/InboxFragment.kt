@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.MainActivity
@@ -38,8 +39,12 @@ class InboxFragment : Fragment() {
         inboxViewModel.getNotifications().observe(viewLifecycleOwner, Observer {
             mNotificationAdapter.notifyDataSetChanged()
         })
-        setupRecyclerViewer()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerViewer()
     }
 
     override fun onDestroyView() {
@@ -48,7 +53,10 @@ class InboxFragment : Fragment() {
     }
 
     private fun setupRecyclerViewer() {
-        mNotificationAdapter = NotificationAdapter(inboxViewModel.getNotifications().value!!, requireContext())
+        mNotificationAdapter = NotificationAdapter(inboxViewModel.getNotifications().value!!, requireContext()) {
+            println("Notification item clicked: ${it.getAppName()}")
+            findNavController().navigate(R.id.action_inboxFragment_to_appInboxFragment)
+        }
         binding.recyclerView.adapter = mNotificationAdapter
         enableSwipeDeleteAndUndo()
     }
@@ -92,4 +100,5 @@ class InboxFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
+
 }

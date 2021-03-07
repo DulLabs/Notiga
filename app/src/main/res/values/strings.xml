@@ -15,4 +15,6 @@
 
     <string name="icon_description">Notification app icon</string>
     <string name="right_arrow">Right arrow</string>
+
+    <string name="app_inbox">Notifications</string>
 </resources>

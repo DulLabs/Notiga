@@ -20,7 +20,7 @@ class NotificationRepository {
 
     fun getNotifications(): MutableLiveData<ArrayList<Notification>> {
         setNotifications()
-        val data  = MutableLiveData<ArrayList<Notification>>()
+        val data = MutableLiveData<ArrayList<Notification>>()
         data.value = dataSet
         return data
     }
@@ -29,10 +29,11 @@ class NotificationRepository {
         for (i in 1..10) {
             dataSet.add(
                 Notification(
-                R.drawable.ic_whatsapp,
-                "Chrome $i",
-                "$i We have some crap that you want to check out."
-            ))
+                    R.drawable.ic_whatsapp,
+                    "Chrome $i",
+                    "$i We have some crap that you want to check out."
+                )
+            )
         }
     }
 
