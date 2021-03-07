@@ -76,4 +76,8 @@ class MainActivity : AppCompatActivity() {
     fun showBottomFab() {
         mainBinding.bottomFab.visibility = View.VISIBLE
     }
+
+    fun getMainBinding(): ActivityMainBinding {
+        return mainBinding
+    }
 }
