@@ -8,10 +8,10 @@ import com.dullabs.notiga.repositories.NotificationRepository
 
 class InboxViewModel : ViewModel() {
 
-    private lateinit var _mNotifications: MutableLiveData<List<Notification>>
+    private lateinit var _mNotifications: MutableLiveData<ArrayList<Notification>>
     private lateinit var mRepo: NotificationRepository
 
-    fun getNotifications(): LiveData<List<Notification>> {
+    fun getNotifications(): LiveData<ArrayList<Notification>> {
         return _mNotifications
     }
 
@@ -23,6 +23,24 @@ class InboxViewModel : ViewModel() {
         mRepo = NotificationRepository.getInstance()
         _mNotifications = mRepo.getNotifications()
         println("Initialized notifications in view, size is ${getNotifications().value!!.size}")
+    }
+
+    fun removeNotification(position: Int) {
+        // This part updates data base or api call
+//        mRepo.removeNotification(position)
+
+        val currentNotifications: ArrayList<Notification> = _mNotifications.value!!
+        currentNotifications.removeAt(position)
+        _mNotifications.postValue(currentNotifications)
+    }
+
+    fun restoreNotification(position: Int, notification: Notification) {
+        // This part updates data base or api call
+//        mRepo.restoreNotification(position, notification)
+
+        val currentNotifications: ArrayList<Notification> = _mNotifications.value!!
+        currentNotifications.add(position, notification)
+        _mNotifications.postValue(currentNotifications)
     }
 
 }

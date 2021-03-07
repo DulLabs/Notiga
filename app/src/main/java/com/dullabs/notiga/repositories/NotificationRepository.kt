@@ -18,9 +18,9 @@ class NotificationRepository {
 
     private val dataSet = ArrayList<Notification>()
 
-    fun getNotifications(): MutableLiveData<List<Notification>> {
+    fun getNotifications(): MutableLiveData<ArrayList<Notification>> {
         setNotifications()
-        val data  = MutableLiveData<List<Notification>>()
+        val data  = MutableLiveData<ArrayList<Notification>>()
         data.value = dataSet
         return data
     }
@@ -34,6 +34,14 @@ class NotificationRepository {
                 "$i We have some crap that you want to check out."
             ))
         }
+    }
+
+    fun removeNotification(position: Int) {
+        dataSet.removeAt(position)
+    }
+
+    fun restoreNotification(position: Int, notification: Notification) {
+        dataSet.add(position, notification)
     }
 
 }
