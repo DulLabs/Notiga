@@ -61,19 +61,29 @@ class MainActivity : AppCompatActivity() {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-    fun hideBottomAppBar() {
+    fun hideBottomControls() {
+        hideBottomAppBar()
+        hideBottomFab()
+    }
+
+    fun showBottomControls() {
+        showBottomAppBar()
+        showBottomFab()
+    }
+
+    private fun hideBottomAppBar() {
         mainBinding.bottomAppBar.visibility = View.GONE
     }
 
-    fun showBottomAppBar() {
+    private fun showBottomAppBar() {
         mainBinding.bottomAppBar.visibility = View.VISIBLE
     }
 
-    fun hideBottomFab() {
+    private fun hideBottomFab() {
         mainBinding.bottomFab.visibility = View.GONE
     }
 
-    fun showBottomFab() {
+    private fun showBottomFab() {
         mainBinding.bottomFab.visibility = View.VISIBLE
     }
 

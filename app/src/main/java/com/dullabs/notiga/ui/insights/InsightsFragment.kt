@@ -28,24 +28,14 @@ class InsightsFragment : Fragment() {
         insightsViewModel.text.observe(viewLifecycleOwner, Observer {
             binding.textInsights.text = it
         })
-        hideBottomControls()
+        (activity as MainActivity).hideBottomControls()
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        showBottomControls()
+        (activity as MainActivity).showBottomControls()
         _binding = null
-    }
-
-    private fun hideBottomControls() {
-        (activity as MainActivity).hideBottomAppBar()
-        (activity as MainActivity).hideBottomFab()
-    }
-
-    private fun showBottomControls() {
-        (activity as MainActivity).showBottomAppBar()
-        (activity as MainActivity).showBottomFab()
     }
 
 }
