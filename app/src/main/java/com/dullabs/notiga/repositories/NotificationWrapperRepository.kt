@@ -18,14 +18,14 @@ class NotificationWrapperRepository {
 
     private val dataSet = ArrayList<NotificationWrapper>()
 
-    fun getNotifications(): MutableLiveData<ArrayList<NotificationWrapper>> {
-        setNotifications()
+    fun getNotificationsWrapper(): MutableLiveData<ArrayList<NotificationWrapper>> {
+        setNotificationsWrapper()
         val data = MutableLiveData<ArrayList<NotificationWrapper>>()
         data.value = dataSet
         return data
     }
 
-    private fun setNotifications() {
+    private fun setNotificationsWrapper() {
         val apps = listOf("chrome", "whatsapp", "linkedin")
         for (i in 1..10) {
             dataSet.add(
