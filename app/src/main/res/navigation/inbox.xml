@@ -48,5 +48,9 @@
         android:id="@+id/appInboxFragment"
         android:name="com.dullabs.notiga.ui.appinbox.AppInboxFragment"
         android:label="@string/app_inbox"
-        tools:layout="@layout/fragment_app_inbox" />
+        tools:layout="@layout/fragment_app_inbox" >
+        <argument
+            android:name="app_name"
+            app:argType="string" />
+    </fragment>
 </navigation>

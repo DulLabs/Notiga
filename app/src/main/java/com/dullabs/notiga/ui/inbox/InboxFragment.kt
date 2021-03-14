@@ -55,7 +55,8 @@ class InboxFragment : Fragment() {
     private fun setupRecyclerViewer() {
         mNotificationAdapter = NotificationAdapter(inboxViewModel.getNotifications().value!!, requireContext()) {
             println("Notification item clicked: ${it.getAppName()}")
-            findNavController().navigate(R.id.action_inboxFragment_to_appInboxFragment)
+            val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getAppName())
+            findNavController().navigate(action)
         }
         binding.recyclerView.adapter = mNotificationAdapter
         enableSwipeDeleteAndUndo()

@@ -6,8 +6,13 @@ import androidx.lifecycle.ViewModel
 
 class AppInboxViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is App Inbox Fragment"
+    private val _appName = MutableLiveData<String>()
+
+    fun getAppName(): LiveData<String> {
+        return _appName
     }
-    val text: LiveData<String> = _text
+
+    fun setAppName(name: String) {
+        _appName.postValue(name)
+    }
 }

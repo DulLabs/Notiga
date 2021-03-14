@@ -18,9 +18,9 @@ class NotificationAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val mIconImage = itemView.findViewById<ImageView>(R.id.iconImage)
-        private val mAppName = itemView.findViewById<TextView>(R.id.appName)
-        private val mNotificationDescription = itemView.findViewById<TextView>(R.id.notificationDescription)
+        private val mIconImage = itemView.findViewById<ImageView>(R.id.notificationWrapperIconImage)
+        private val mAppName = itemView.findViewById<TextView>(R.id.notificationWrapperAppName)
+        private val mNotificationDescription = itemView.findViewById<TextView>(R.id.notificationWrapperDescription)
 
         init {
             itemView.setOnClickListener {
@@ -37,7 +37,7 @@ class NotificationAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(mContext).inflate(R.layout.notification_item, parent, false)
+            LayoutInflater.from(mContext).inflate(R.layout.notification_wrapper_item, parent, false)
         )
     }
 

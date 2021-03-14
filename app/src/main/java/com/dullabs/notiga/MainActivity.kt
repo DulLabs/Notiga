@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.dullabs.notiga.databinding.ActivityMainBinding
+import com.dullabs.notiga.ui.appinbox.AppInboxViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
     private var currentNavController: LiveData<NavController>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
+
 
     fun hideBottomControls() {
         hideBottomAppBar()
