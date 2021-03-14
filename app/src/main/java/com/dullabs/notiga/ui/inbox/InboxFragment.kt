@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.MainActivity
 import com.dullabs.notiga.R
-import com.dullabs.notiga.adapters.NotificationAdapter
+import com.dullabs.notiga.adapters.NotificationWrapperAdapter
 import com.dullabs.notiga.databinding.FragmentInboxBinding
-import com.dullabs.notiga.models.Notification
+import com.dullabs.notiga.models.NotificationWrapper
 import com.google.android.material.snackbar.Snackbar
 
 class InboxFragment : Fragment() {
 
     private var _binding: FragmentInboxBinding? = null
     private lateinit var inboxViewModel: InboxViewModel
-    private lateinit var mNotificationAdapter: NotificationAdapter
+    private lateinit var mNotificationWrapperAdapter: NotificationWrapperAdapter
 
     private val binding get() = _binding!!
 
@@ -36,8 +36,8 @@ class InboxFragment : Fragment() {
         _binding = FragmentInboxBinding.inflate(inflater, container, false)
         inboxViewModel = ViewModelProvider(this).get(InboxViewModel::class.java)
         inboxViewModel.init()
-        inboxViewModel.getNotifications().observe(viewLifecycleOwner, Observer {
-            mNotificationAdapter.notifyDataSetChanged()
+        inboxViewModel.getNotificationsWrapper().observe(viewLifecycleOwner, Observer {
+            mNotificationWrapperAdapter.notifyDataSetChanged()
         })
         return binding.root
     }
@@ -53,12 +53,12 @@ class InboxFragment : Fragment() {
     }
 
     private fun setupRecyclerViewer() {
-        mNotificationAdapter = NotificationAdapter(inboxViewModel.getNotifications().value!!, requireContext()) {
-            println("Notification item clicked: ${it.getAppName()}")
-            val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getAppName())
+        mNotificationWrapperAdapter = NotificationWrapperAdapter(inboxViewModel.getNotificationsWrapper().value!!, requireContext()) {
+            println("Notification item clicked: ${it.getLastNotification().getAppName()}")
+            val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getLastNotification().getAppName())
             findNavController().navigate(action)
         }
-        binding.recyclerView.adapter = mNotificationAdapter
+        binding.recyclerView.adapter = mNotificationWrapperAdapter
         enableSwipeDeleteAndUndo()
     }
 
@@ -67,8 +67,8 @@ class InboxFragment : Fragment() {
             @SuppressLint("ShowToast")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position: Int = viewHolder.adapterPosition
-                val notificationItem: Notification =
-                    mNotificationAdapter.getItemAtPosition(position)
+                val notificationWrapperItem: NotificationWrapper =
+                    mNotificationWrapperAdapter.getItemAtPosition(position)
                 if (direction == ItemTouchHelper.RIGHT) {
                     inboxViewModel.removeNotification(position)
 //                    mNotificationAdapter.removeItem(position)
@@ -78,7 +78,7 @@ class InboxFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.setAction("Undo") {
-                        inboxViewModel.restoreNotification(position, notificationItem)
+                        inboxViewModel.restoreNotification(position, notificationWrapperItem)
 //                        mNotificationAdapter.restoreItem(notificationItem, position)
                         binding.recyclerView.scrollToPosition(position)
                     }
@@ -86,7 +86,7 @@ class InboxFragment : Fragment() {
                     snackbar.setBackgroundTint(Color.DKGRAY)
                     snackbar.setAnchorView(R.id.bottomFab).show()
                 } else {
-                    mNotificationAdapter.notifyItemChanged(position)
+                    mNotificationWrapperAdapter.notifyItemChanged(position)
                     val snackbar: Snackbar = Snackbar.make(
                         (activity as MainActivity).getMainBinding().coordinatorLayout,
                         "Item paused.",
