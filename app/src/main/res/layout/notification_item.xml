@@ -20,7 +20,7 @@
             android:background="@color/blue_400">
 
             <ImageView
-                android:id="@+id/iconImage"
+                android:id="@+id/notificationIconImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/icon_description"
@@ -36,35 +36,19 @@
                 android:layout_marginStart="12dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iconImage"
+                app:layout_constraintStart_toEndOf="@+id/notificationIconImage"
                 app:layout_constraintTop_toTopOf="parent">
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <TextView
+                    android:id="@+id/notificationAppName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/appName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:maxWidth="150dp"
-                        tools:textColor="@color/white_600"
-                        android:textColor="@color/white_600"
-                        tools:text="Chrome"
-                        style="@style/TextAppearance.MaterialComponents.Body2"/>
-                    <TextView
-                        android:id="@+id/notificationCount"
-                        android:layout_marginStart="40dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:maxWidth="50dp"
-                        tools:textColor="@color/blue_100"
-                        android:textColor="@color/blue_100"
-                        tools:text="+2"
-                        style="@style/TextAppearance.MaterialComponents.Body2"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="150dp"
+                    tools:textColor="@color/white_600"
+                    android:textColor="@color/white_600"
+                    tools:text="Chrome"
+                    style="@style/TextAppearance.MaterialComponents.Body2"/>
                 <TextView
                     android:id="@+id/notificationDescription"
                     style="@style/TextAppearance.MaterialComponents.Caption"
@@ -78,16 +62,5 @@
                     tools:text="We have some crap that you want to check out Heloa ndabhjhbjd ajhfbbhjas ajhbfhja JHSDBHJba jhdsbhjs." />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <ImageView
-                android:id="@+id/rightArrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/right_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/notificationTextSection"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_right" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
