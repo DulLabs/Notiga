@@ -37,12 +37,4 @@ class NotificationRepository {
         }
     }
 
-    fun removeNotification(position: Int) {
-        dataSet.removeAt(position)
-    }
-
-    fun restoreNotification(position: Int, notification: Notification) {
-        dataSet.add(position, notification)
-    }
-
 }
