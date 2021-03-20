@@ -6,20 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.dullabs.notiga.MainActivity
 import com.dullabs.notiga.R
 import com.dullabs.notiga.adapters.NotificationWrapperAdapter
 import com.dullabs.notiga.databinding.FragmentInboxBinding
 import com.dullabs.notiga.models.NotificationWrapper
+import com.dullabs.notiga.ui.commons.BaseInboxFragment
 import com.google.android.material.snackbar.Snackbar
 
-class InboxFragment : Fragment() {
+class InboxFragment : BaseInboxFragment() {
 
     private var _binding: FragmentInboxBinding? = null
     private lateinit var inboxViewModel: InboxViewModel
@@ -71,15 +70,13 @@ class InboxFragment : Fragment() {
                     mNotificationWrapperAdapter.getItemAtPosition(position)
                 if (direction == ItemTouchHelper.RIGHT) {
                     inboxViewModel.removeNotification(position)
-//                    mNotificationAdapter.removeItem(position)
-                    val snackbar: Snackbar = Snackbar.make(
-                        (activity as MainActivity).getMainBinding().coordinatorLayout,
+                    snackbar = Snackbar.make(
+                        binding.recyclerView,
                         "Item was removed from the list.",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.setAction("Undo") {
                         inboxViewModel.restoreNotification(position, notificationWrapperItem)
-//                        mNotificationAdapter.restoreItem(notificationItem, position)
                         binding.recyclerView.scrollToPosition(position)
                     }
                     snackbar.setActionTextColor(Color.YELLOW)
@@ -87,8 +84,8 @@ class InboxFragment : Fragment() {
                     snackbar.setAnchorView(R.id.bottomFab).show()
                 } else {
                     mNotificationWrapperAdapter.notifyItemChanged(position)
-                    val snackbar: Snackbar = Snackbar.make(
-                        (activity as MainActivity).getMainBinding().coordinatorLayout,
+                    snackbar = Snackbar.make(
+                        binding.recyclerView,
                         "Item paused.",
                         Snackbar.LENGTH_LONG
                     )
@@ -101,5 +98,4 @@ class InboxFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
-
 }

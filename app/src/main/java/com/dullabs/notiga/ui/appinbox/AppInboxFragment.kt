@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -17,9 +16,10 @@ import com.dullabs.notiga.R
 import com.dullabs.notiga.adapters.NotificationAdapter
 import com.dullabs.notiga.databinding.FragmentAppInboxBinding
 import com.dullabs.notiga.models.Notification
+import com.dullabs.notiga.ui.commons.BaseInboxFragment
 import com.google.android.material.snackbar.Snackbar
 
-class AppInboxFragment : Fragment() {
+class AppInboxFragment : BaseInboxFragment() {
 
     private var _binding: FragmentAppInboxBinding? = null
     private val appInboxViewModel: AppInboxViewModel by activityViewModels()
@@ -70,8 +70,8 @@ class AppInboxFragment : Fragment() {
                 val position: Int = viewHolder.adapterPosition
                 val notificationItem: Notification = mNotificationAdapter.getItemAtPosition(position)
                 appInboxViewModel.removeNotification(position)
-                val snackbar: Snackbar = Snackbar.make(
-                    (activity as MainActivity).getMainBinding().coordinatorLayout,
+                snackbar = Snackbar.make(
+                    binding.appInboxRecyclerView,
                     "Item was removed from the list.",
                     Snackbar.LENGTH_LONG
                 )
@@ -82,7 +82,6 @@ class AppInboxFragment : Fragment() {
                 snackbar.setActionTextColor(Color.YELLOW)
                 snackbar.setBackgroundTint(Color.DKGRAY)
                 snackbar.show()
-//                snackbar.setAnchorView(R.id.bottomFab).show()
             }
         }
 
