@@ -10,17 +10,18 @@ class AppInboxViewModel : ViewModel() {
 
     private lateinit var _mNotifications: MutableLiveData<ArrayList<Notification>>
     private lateinit var mRepo: NotificationRepository
+    private val _appName = MutableLiveData<String>()
 
     fun getNotifications(): LiveData<ArrayList<Notification>> {
         return _mNotifications
     }
 
-    fun init() {
-        if (this::_mNotifications.isInitialized) {
-            return
+    fun init(appName: String) {
+        if (!this::_mNotifications.isInitialized) {
+            mRepo = NotificationRepository.getInstance()
         }
-        mRepo = NotificationRepository.getInstance()
-        _mNotifications = mRepo.getNotifications()
+        setAppName(appName)
+        _mNotifications = mRepo.getNotifications(appName)
     }
 
     fun removeNotification(position: Int) {
@@ -41,13 +42,11 @@ class AppInboxViewModel : ViewModel() {
         _mNotifications.postValue(currentNotifications)
     }
 
-    private val _appName = MutableLiveData<String>()
-
     fun getAppName(): LiveData<String> {
         return _appName
     }
 
-    fun setAppName(name: String) {
+    private fun setAppName(name: String) {
         _appName.postValue(name)
     }
 }

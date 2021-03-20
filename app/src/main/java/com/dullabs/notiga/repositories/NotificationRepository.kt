@@ -18,19 +18,20 @@ class NotificationRepository {
 
     private val dataSet = ArrayList<Notification>()
 
-    fun getNotifications(): MutableLiveData<ArrayList<Notification>> {
-        setNotifications()
+    fun getNotifications(appName: String): MutableLiveData<ArrayList<Notification>> {
+        dataSet.clear()
+        setNotifications(appName)
         val data = MutableLiveData<ArrayList<Notification>>()
         data.value = dataSet
         return data
     }
 
-    private fun setNotifications() {
+    private fun setNotifications(appName: String) {
         for (i in 1..10) {
             dataSet.add(
                 Notification(
                     R.drawable.ic_whatsapp,
-                    "Chrome $i",
+                    appName,
                     "$i We have some crap that you want to check out."
                 )
             )

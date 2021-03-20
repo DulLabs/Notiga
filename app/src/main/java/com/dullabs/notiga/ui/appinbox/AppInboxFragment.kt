@@ -34,8 +34,7 @@ class AppInboxFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAppInboxBinding.inflate(inflater, container, false)
-        appInboxViewModel.setAppName(appInboxFragmentArgs.appName)
-        appInboxViewModel.init()
+        appInboxViewModel.init(appInboxFragmentArgs.appName)
         appInboxViewModel.getNotifications().observe(viewLifecycleOwner, Observer {
             mNotificationAdapter.notifyDataSetChanged()
         })
@@ -58,7 +57,7 @@ class AppInboxFragment : Fragment() {
 
     private fun setupRecyclerView() {
         mNotificationAdapter = NotificationAdapter(appInboxViewModel.getNotifications().value!!, requireContext()) {
-            // perform some action on notification clicked -> open the intended app
+            //TODO: perform some action on notification clicked -> open the intended app
         }
         binding.appInboxRecyclerView.adapter = mNotificationAdapter
         enableSwipeDeleteAndUndo()
