@@ -33,7 +33,7 @@ class NotificationWrapperAdapter(
             mIconImage.setImageResource(currentNotificationWrapper.getLastNotification().getAppIconId())
             mAppName.text = currentNotificationWrapper.getLastNotification().getAppName()
             mNotificationDescription.text = currentNotificationWrapper.getLastNotification().getNotificationDescription()
-            val count: String = "+${currentNotificationWrapper.getCount()}"
+            val count = "+${currentNotificationWrapper.getCount()}"
             mNotificationWrapperCount.text = count
         }
     }
