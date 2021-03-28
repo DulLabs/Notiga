@@ -13,16 +13,20 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
 import com.dullabs.notiga.adapters.NotificationWrapperAdapter
+import com.dullabs.notiga.adapters.SimpleSectionedRecyclerViewAdapter
+import com.dullabs.notiga.adapters.SimpleSectionedRecyclerViewAdapter.Section
 import com.dullabs.notiga.databinding.FragmentInboxBinding
 import com.dullabs.notiga.models.NotificationWrapper
 import com.dullabs.notiga.ui.commons.BaseInboxFragment
 import com.google.android.material.snackbar.Snackbar
+
 
 class InboxFragment : BaseInboxFragment() {
 
     private var _binding: FragmentInboxBinding? = null
     private lateinit var inboxViewModel: InboxViewModel
     private lateinit var mNotificationWrapperAdapter: NotificationWrapperAdapter
+    private lateinit var mSectionedAdapter: SimpleSectionedRecyclerViewAdapter
 
     private val binding get() = _binding!!
 
@@ -57,7 +61,21 @@ class InboxFragment : BaseInboxFragment() {
             val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getLastNotification().getAppName())
             findNavController().navigate(action)
         }
-        binding.recyclerView.adapter = mNotificationWrapperAdapter
+        //This is the code to provide a sectioned list
+        val sections: ArrayList<Section> = ArrayList()
+        //Sections
+        sections.add(Section(0, "Section 1"))
+        sections.add(Section(5, "Section 2"))
+        sections.add(Section(12, "Section 3"))
+        sections.add(Section(14, "Section 4"))
+        sections.add(Section(20, "Section 5"))
+
+        //Add your adapter to the sectionAdapter
+        val dummy = arrayOfNulls<Section>(sections.size)
+        mSectionedAdapter =
+            SimpleSectionedRecyclerViewAdapter(requireContext(), R.layout.section, R.id.section_text, mNotificationWrapperAdapter)
+        mSectionedAdapter.setSections(sections.toArray(dummy))
+        binding.recyclerView.adapter = mSectionedAdapter
         enableSwipeDeleteAndUndo()
     }
 
@@ -65,25 +83,27 @@ class InboxFragment : BaseInboxFragment() {
         val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
             @SuppressLint("ShowToast")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position: Int = viewHolder.adapterPosition
+                val sectionedPosition: Int = viewHolder.adapterPosition
+                val originalPosition = mSectionedAdapter.sectionedPositionToPosition(sectionedPosition)
                 val notificationWrapperItem: NotificationWrapper =
-                    mNotificationWrapperAdapter.getItemAtPosition(position)
+                    mNotificationWrapperAdapter.getItemAtPosition(originalPosition)
                 if (direction == ItemTouchHelper.RIGHT) {
-                    inboxViewModel.removeNotification(position)
+                    inboxViewModel.removeNotification(originalPosition)
                     snackbar = Snackbar.make(
                         binding.recyclerView,
                         "Item was removed from the list.",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.setAction("Undo") {
-                        inboxViewModel.restoreNotification(position, notificationWrapperItem)
-                        binding.recyclerView.scrollToPosition(position)
+                        inboxViewModel.restoreNotification(originalPosition, notificationWrapperItem)
+                        binding.recyclerView.scrollToPosition(sectionedPosition)
                     }
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.setBackgroundTint(Color.DKGRAY)
                     snackbar.setAnchorView(R.id.bottomFab).show()
                 } else {
-                    mNotificationWrapperAdapter.notifyItemChanged(position)
+                    mSectionedAdapter.notifyItemChanged(sectionedPosition)
+                    mNotificationWrapperAdapter.notifyItemChanged(originalPosition)
                     snackbar = Snackbar.make(
                         binding.recyclerView,
                         "Item paused.",

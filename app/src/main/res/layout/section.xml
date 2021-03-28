@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:singleLine="true"
+    android:textAllCaps="true"
+    android:background="@android:color/transparent"
+    android:textSize="16sp"
+    android:id="@+id/section_text"
+    android:textColor="@color/black"
+    tools:text="Today"
+    android:textStyle="bold"
+    style="@style/TextAppearance.MaterialComponents.Headline6"/>

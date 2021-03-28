@@ -27,7 +27,7 @@ class NotificationWrapperRepository {
 
     private fun setNotificationsWrapper() {
         val apps = listOf("chrome", "whatsapp", "linkedin")
-        for (i in 1..10) {
+        for (i in 1..35) {
             dataSet.add(
                 NotificationWrapper (
                     Notification(
