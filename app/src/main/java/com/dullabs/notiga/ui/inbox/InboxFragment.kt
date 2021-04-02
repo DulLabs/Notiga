@@ -12,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
-import com.dullabs.notiga.adapters.NotificationWrapperAdapter
-import com.dullabs.notiga.adapters.SimpleSectionedRecyclerViewAdapter
-import com.dullabs.notiga.adapters.SimpleSectionedRecyclerViewAdapter.Section
+import com.dullabs.notiga.adapters.NotificationWrapperSectionedRecyclerViewAdapter
 import com.dullabs.notiga.databinding.FragmentInboxBinding
 import com.dullabs.notiga.models.NotificationWrapper
 import com.dullabs.notiga.ui.commons.BaseInboxFragment
@@ -25,8 +23,7 @@ class InboxFragment : BaseInboxFragment() {
 
     private var _binding: FragmentInboxBinding? = null
     private lateinit var inboxViewModel: InboxViewModel
-    private lateinit var mNotificationWrapperAdapter: NotificationWrapperAdapter
-    private lateinit var mSectionedAdapter: SimpleSectionedRecyclerViewAdapter
+    private lateinit var mNotificationWrapperSectionedAdapter: NotificationWrapperSectionedRecyclerViewAdapter
 
     private val binding get() = _binding!!
 
@@ -40,7 +37,7 @@ class InboxFragment : BaseInboxFragment() {
         inboxViewModel = ViewModelProvider(this).get(InboxViewModel::class.java)
         inboxViewModel.init()
         inboxViewModel.getNotificationsWrapper().observe(viewLifecycleOwner, Observer {
-            mNotificationWrapperAdapter.notifyDataSetChanged()
+            mNotificationWrapperSectionedAdapter.notifyDataSetChanged()
         })
         return binding.root
     }
@@ -56,26 +53,22 @@ class InboxFragment : BaseInboxFragment() {
     }
 
     private fun setupRecyclerViewer() {
-        mNotificationWrapperAdapter = NotificationWrapperAdapter(inboxViewModel.getNotificationsWrapper().value!!, requireContext()) {
+        mNotificationWrapperSectionedAdapter = NotificationWrapperSectionedRecyclerViewAdapter(inboxViewModel.getNotificationsWrapper().value!!, requireContext()) {
             println("Notification item clicked: ${it.getLastNotification().getAppName()}")
             val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getLastNotification().getAppName())
             findNavController().navigate(action)
         }
         //This is the code to provide a sectioned list
-        val sections: ArrayList<Section> = ArrayList()
+        val sections: ArrayList<NotificationWrapperSectionedRecyclerViewAdapter.Section> = ArrayList()
         //Sections
-        sections.add(Section(0, "Section 1"))
-        sections.add(Section(5, "Section 2"))
-        sections.add(Section(12, "Section 3"))
-        sections.add(Section(14, "Section 4"))
-        sections.add(Section(20, "Section 5"))
+        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(0, "Section 1"))
+        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(5, "Section 2"))
+        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(12, "Section 3"))
+        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(14, "Section 4"))
+        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(20, "Section 5"))
 
-        //Add your adapter to the sectionAdapter
-        val dummy = arrayOfNulls<Section>(sections.size)
-        mSectionedAdapter =
-            SimpleSectionedRecyclerViewAdapter(requireContext(), R.layout.section, R.id.section_text, mNotificationWrapperAdapter)
-        mSectionedAdapter.setSections(sections.toArray(dummy))
-        binding.recyclerView.adapter = mSectionedAdapter
+        mNotificationWrapperSectionedAdapter.setSections(sections)
+        binding.recyclerView.adapter = mNotificationWrapperSectionedAdapter
         enableSwipeDeleteAndUndo()
     }
 
@@ -84,9 +77,9 @@ class InboxFragment : BaseInboxFragment() {
             @SuppressLint("ShowToast")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val sectionedPosition: Int = viewHolder.adapterPosition
-                val originalPosition = mSectionedAdapter.sectionedPositionToPosition(sectionedPosition)
+                val originalPosition = mNotificationWrapperSectionedAdapter.sectionedPositionToPosition(sectionedPosition)
                 val notificationWrapperItem: NotificationWrapper =
-                    mNotificationWrapperAdapter.getItemAtPosition(originalPosition)
+                    mNotificationWrapperSectionedAdapter.getNotificationWrapperItemAtPosition(originalPosition)
                 if (direction == ItemTouchHelper.RIGHT) {
                     inboxViewModel.removeNotification(originalPosition)
                     snackbar = Snackbar.make(
@@ -102,8 +95,7 @@ class InboxFragment : BaseInboxFragment() {
                     snackbar.setBackgroundTint(Color.DKGRAY)
                     snackbar.setAnchorView(R.id.bottomFab).show()
                 } else {
-                    mSectionedAdapter.notifyItemChanged(sectionedPosition)
-                    mNotificationWrapperAdapter.notifyItemChanged(originalPosition)
+                    mNotificationWrapperSectionedAdapter.notifyItemChanged(sectionedPosition)
                     snackbar = Snackbar.make(
                         binding.recyclerView,
                         "Item paused.",
