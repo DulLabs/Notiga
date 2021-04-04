@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
+import com.dullabs.notiga.adapters.NotificationWrapperSectionedRecyclerViewAdapter
 import kotlin.properties.Delegates
 import kotlin.math.max
 import kotlin.math.min
@@ -43,6 +44,10 @@ abstract class SwipeCallback(mContext: Context) : ItemTouchHelper.Callback() {
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
+        // don't swipe if the item is a section header
+        if (viewHolder.itemViewType == NotificationWrapperSectionedRecyclerViewAdapter.SECTION_TYPE) {
+            return makeMovementFlags(0, 0)
+        }
         return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
     }
 
