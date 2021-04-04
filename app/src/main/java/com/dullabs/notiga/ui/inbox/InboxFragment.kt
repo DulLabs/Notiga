@@ -15,7 +15,6 @@ import com.dullabs.notiga.R
 import com.dullabs.notiga.adapters.NotificationWrapperSectionedRecyclerViewAdapter
 import com.dullabs.notiga.databinding.FragmentInboxBinding
 import com.dullabs.notiga.models.NotificationWrapper
-import com.dullabs.notiga.types.SectionType
 import com.dullabs.notiga.ui.commons.BaseInboxFragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -54,19 +53,12 @@ class InboxFragment : BaseInboxFragment() {
     }
 
     private fun setupRecyclerViewer() {
-        mNotificationWrapperSectionedAdapter = NotificationWrapperSectionedRecyclerViewAdapter(inboxViewModel.getNotificationsWrapper().value!!, requireContext()) {
+        mNotificationWrapperSectionedAdapter = NotificationWrapperSectionedRecyclerViewAdapter(inboxViewModel.getNotificationsWrapper().value!!, inboxViewModel.getSectionTypeToSectionedPosition().value!!, inboxViewModel.getSectionTypeToSection().value!!, requireContext()) {
             println("Notification item clicked: ${it.getLastNotification().getAppName()}")
             val action = InboxFragmentDirections.actionInboxFragmentToAppInboxFragment(it.getLastNotification().getAppName())
             findNavController().navigate(action)
         }
-        //This is the code to provide a sectioned list
-        val sections: ArrayList<NotificationWrapperSectionedRecyclerViewAdapter.Section> = ArrayList()
-        //Sections
-        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(0, "Section 1", SectionType.TodaySection))
-        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(5, "Section 2", SectionType.YesterdaySection))
-        sections.add(NotificationWrapperSectionedRecyclerViewAdapter.Section(12, "Section 3", SectionType.OlderSection))
 
-        mNotificationWrapperSectionedAdapter.setSections(sections)
         binding.recyclerView.adapter = mNotificationWrapperSectionedAdapter
         enableSwipeDeleteAndUndo()
     }
@@ -80,16 +72,14 @@ class InboxFragment : BaseInboxFragment() {
                 val notificationWrapperItem: NotificationWrapper =
                     mNotificationWrapperSectionedAdapter.getNotificationWrapperItemAtPosition(originalPosition)
                 if (direction == ItemTouchHelper.RIGHT) {
-                    inboxViewModel.removeNotification(originalPosition)
-                    mNotificationWrapperSectionedAdapter.removeItemFromSectionedPosition(sectionedPosition)
+                    inboxViewModel.removeNotification(sectionedPosition, originalPosition)
                     snackbar = Snackbar.make(
                         binding.recyclerView,
                         "Item was removed from the list.",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.setAction("Undo") {
-                        inboxViewModel.restoreNotification(originalPosition, notificationWrapperItem)
-                        mNotificationWrapperSectionedAdapter.restoreItemToSectionedPosition(sectionedPosition)
+                        inboxViewModel.restoreNotification(sectionedPosition, originalPosition, notificationWrapperItem)
                         binding.recyclerView.scrollToPosition(sectionedPosition)
                     }
                     snackbar.setActionTextColor(Color.YELLOW)
