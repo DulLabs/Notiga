@@ -35,7 +35,6 @@ class NotificationWrapperSectionedRecyclerViewAdapter(
 
         init {
             itemView.setOnClickListener {
-                // TODO Change adapter position
                 onNotificationWrapperClicked(mNotificationsWrapperData[sectionedPositionToPosition(adapterPosition)])
             }
         }
