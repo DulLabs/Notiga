@@ -84,33 +84,6 @@ class NotificationWrapperSectionedRecyclerViewAdapter(
         return if (isSectionHeaderPosition(sectionedPosition)) SECTION_TYPE else NOTIFICATION_WRAPPER_TYPE
     }
 
-    fun setSections(@NonNull sections: List<Section>) {
-        mSectionTypeToSectionedPosition.clear()
-        mSectionTypeToSection.clear()
-
-        // sort the sections according to their first positions
-        // sections in the main code can be added in arbitrary fashion (not necessarily sorted)
-        val sortedSections = sections.sortedWith(Comparator { o, o1 -> if (o.firstPosition == o1.firstPosition) 0 else if (o.firstPosition < o1.firstPosition) -1 else 1 })
-
-        for ((offset, section) in sortedSections.withIndex()) {
-            section.sectionedPosition = section.firstPosition + offset
-            mSectionTypeToSectionedPosition[section.sectionType] = section.sectionedPosition
-            mSectionTypeToSection[section.sectionType] = section
-        }
-        notifyDataSetChanged()
-    }
-
-//    fun positionToSectionedPosition(position: Int): Int {
-//        var offset = 0
-//        for (i in 0 until mSections.size()) {
-//            if (mSections.valueAt(i).firstPosition > position) {
-//                break
-//            }
-//            ++offset
-//        }
-//        return position + offset
-//    }
-
     fun sectionedPositionToPosition(sectionedPosition: Int): Int {
         if (isSectionHeaderPosition(sectionedPosition)) {
             return RecyclerView.NO_POSITION
