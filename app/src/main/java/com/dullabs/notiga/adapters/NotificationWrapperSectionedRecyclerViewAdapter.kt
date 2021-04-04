@@ -10,12 +10,14 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
 import com.dullabs.notiga.models.NotificationWrapper
+import com.dullabs.notiga.models.Section
 import com.dullabs.notiga.types.SectionType
-import kotlin.properties.Delegates
 
 class NotificationWrapperSectionedRecyclerViewAdapter(
-    private var mNotificationsWrapperData: List<NotificationWrapper>,
-    private var mContext: Context,
+    private val mNotificationsWrapperData: List<NotificationWrapper>,
+    private val mSectionTypeToSectionedPosition: HashMap<SectionType, Int>,
+    private val mSectionTypeToSection: HashMap<SectionType, Section>,
+    private val mContext: Context,
     private val onNotificationWrapperClicked: (NotificationWrapper) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -23,10 +25,6 @@ class NotificationWrapperSectionedRecyclerViewAdapter(
         const val SECTION_TYPE = 0
         const val NOTIFICATION_WRAPPER_TYPE = 1
     }
-
-    private val mSectionTypeToSectionedPosition: HashMap<SectionType, Int> = HashMap()
-
-    private val mSectionTypeToSection: HashMap<SectionType, Section> = HashMap()
 
     inner class NotificationWrapperViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -87,10 +85,6 @@ class NotificationWrapperSectionedRecyclerViewAdapter(
         return if (isSectionHeaderPosition(sectionedPosition)) SECTION_TYPE else NOTIFICATION_WRAPPER_TYPE
     }
 
-    class Section(val firstPosition: Int, val title: String, val sectionType: SectionType) {
-        var sectionedPosition by Delegates.notNull<Int>()
-    }
-
     fun setSections(@NonNull sections: List<Section>) {
         mSectionTypeToSectionedPosition.clear()
         mSectionTypeToSection.clear()
@@ -145,28 +139,6 @@ class NotificationWrapperSectionedRecyclerViewAdapter(
 
     private fun getSectionTypeFromSectionedPosition(sectionedPosition: Int): SectionType {
         return mSectionTypeToSectionedPosition.filterValues { it == sectionedPosition }.keys.elementAt(0)
-    }
-
-    fun removeItemFromSectionedPosition(sectionedPosition: Int) {
-        for (key in mSectionTypeToSectionedPosition.keys) {
-            if (mSectionTypeToSectionedPosition[key]!! > sectionedPosition) {
-                val oldPosition = mSectionTypeToSectionedPosition[key]
-                if (oldPosition != null) {
-                    mSectionTypeToSectionedPosition[key] = oldPosition-1
-                }
-            }
-        }
-    }
-
-    fun restoreItemToSectionedPosition(sectionedPosition: Int) {
-        for (key in mSectionTypeToSectionedPosition.keys) {
-            if (mSectionTypeToSectionedPosition[key]!! >= sectionedPosition) {
-                val oldPosition = mSectionTypeToSectionedPosition[key]
-                if (oldPosition != null) {
-                    mSectionTypeToSectionedPosition[key] = oldPosition+1
-                }
-            }
-        }
     }
 
 }
