@@ -1,21 +1,15 @@
 package com.dullabs.notiga
 
 import android.os.Bundle
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.dullabs.notiga.databinding.ActivityMainBinding
-import com.dullabs.notiga.ui.appinbox.AppInboxViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavBar()
     }
-
 
     private fun setupBottomNavBar() {
         val appBarConfiguration = AppBarConfiguration(
@@ -68,7 +61,6 @@ class MainActivity : AppCompatActivity() {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-
     fun hideBottomControls() {
         hideBottomAppBar()
         hideBottomFab()
@@ -98,4 +90,11 @@ class MainActivity : AppCompatActivity() {
     fun getMainBinding(): ActivityMainBinding {
         return mainBinding
     }
+
+    fun setFABOnClickListener(onClickAction: () -> Unit) {
+        mainBinding.bottomFab.setOnClickListener { view ->
+            onClickAction()
+        }
+    }
+
 }
