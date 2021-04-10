@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.dullabs.notiga.MainActivity
+import com.dullabs.notiga.R
 import com.dullabs.notiga.databinding.FragmentBatchBinding
+import com.google.android.material.snackbar.Snackbar
 
 class BatchFragment : Fragment() {
 
@@ -28,6 +31,15 @@ class BatchFragment : Fragment() {
             binding.textBatch.text = it
         })
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setFABOnClickListener {
+            Snackbar.make(view, "Here's a Snackbar from Batch Fragment", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).setAnchorView(R.id.bottomFab)
+                .show()
+        }
     }
 
     override fun onDestroyView() {

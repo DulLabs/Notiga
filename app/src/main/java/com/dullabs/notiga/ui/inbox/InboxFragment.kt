@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.dullabs.notiga.MainActivity
 import com.dullabs.notiga.R
 import com.dullabs.notiga.adapters.NotificationWrapperSectionedRecyclerViewAdapter
 import com.dullabs.notiga.databinding.FragmentInboxBinding
@@ -45,6 +46,11 @@ class InboxFragment : BaseInboxFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerViewer()
+        (activity as MainActivity).setFABOnClickListener {
+            Snackbar.make(view, "Here's a Snackbar from Inbox Fragment", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).setAnchorView(R.id.bottomFab)
+                .show()
+        }
     }
 
     override fun onDestroyView() {
